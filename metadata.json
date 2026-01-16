@@ -1,0 +1,19 @@
+{
+    "name": "Uptime Notifier",
+    "description": "Displays system uptime in the top panel. Reliable, lightweight, and customizable.",
+    "uuid": "uptime-notifier@sam.shell-extension",
+    "shell-version": [
+        "41",
+        "42",
+        "43",
+        "44",
+        "45",
+        "46",
+        "47",
+        "48",
+        "49"
+    ],
+    "url": "https://github.com/antigravity/uptime-notifier",
+    "settings-schema": "org.gnome.shell.extensions.uptime-notifier",
+    "version": 1
+}
