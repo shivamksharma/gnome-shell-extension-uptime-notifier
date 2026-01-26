@@ -30,7 +30,7 @@ A lightweight, non-intrusive GNOME Shell extension that displays the system upti
 
 ## Compatibility
 
--   **GNOME Shell**: 41 - 49
+-   **GNOME Shell**: 42 - 49
 -   **Display Server**: Wayland & X11
 
 ## Architecture
