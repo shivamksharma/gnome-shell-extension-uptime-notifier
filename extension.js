@@ -4,6 +4,9 @@ const PanelMenu = imports.ui.panelMenu;
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
 
+// ByteArray for GNOME 42/43 compatibility (TextDecoder not always available)
+const ByteArray = imports.byteArray;
+
 const UptimeIndicator = GObject.registerClass(
     class UptimeIndicator extends PanelMenu.Button {
         _init() {
@@ -75,12 +78,15 @@ const UptimeIndicator = GObject.registerClass(
                     return 'Err';
                 }
 
-                // Older GJS: stdout might be Uint8Array or String depending on SpiderMonkey version.
-                // In 42, it's often a ByteArray.
+                // Handle different GJS versions: stdout can be Uint8Array, ByteArray, or String
                 let rawOutput;
                 if (stdout instanceof Uint8Array) {
-                    const decoder = new TextDecoder();
-                    rawOutput = decoder.decode(stdout).trim();
+                    // GNOME 42/43: use ByteArray.toString(), GNOME 44+: TextDecoder available
+                    if (typeof TextDecoder !== 'undefined') {
+                        rawOutput = new TextDecoder().decode(stdout).trim();
+                    } else {
+                        rawOutput = ByteArray.toString(stdout).trim();
+                    }
                 } else {
                     rawOutput = stdout.toString().trim();
                 }
