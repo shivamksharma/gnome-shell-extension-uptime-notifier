@@ -1,8 +1,10 @@
-const { GLib, St, Clutter, GObject, Gio } = imports.gi;
+/* exported init enable disable */
+'use strict';
+
+const { GLib, St, Clutter, GObject } = imports.gi;
 const Main = imports.ui.main;
 const PanelMenu = imports.ui.panelMenu;
 const ExtensionUtils = imports.misc.extensionUtils;
-const Me = ExtensionUtils.getCurrentExtension();
 
 // ByteArray for GNOME 42/43 compatibility (TextDecoder not always available)
 const ByteArray = imports.byteArray;
@@ -132,32 +134,46 @@ const UptimeIndicator = GObject.registerClass(
         }
 
         destroy() {
-            if (this._timerId) {
-                GLib.source_remove(this._timerId);
-                this._timerId = null;
-            }
-
+            // Disconnect settings FIRST to prevent callbacks during cleanup
             if (this._settingsChangedId) {
                 this._settings.disconnect(this._settingsChangedId);
                 this._settingsChangedId = null;
             }
 
+            if (this._timerId) {
+                GLib.source_remove(this._timerId);
+                this._timerId = null;
+            }
+
+            // Nullify settings to release reference
+            this._settings = null;
+
             super.destroy();
         }
     });
 
-let _indicator;
+let _indicator = null;
 
+/**
+ * Called once when extension is loaded (not enabled).
+ * Avoid heavy initialization here.
+ */
 function init() {
-    ExtensionUtils.initTranslations('uptime-notifier');
+    // No translations to initialize (no locale/ directory)
 }
 
+/**
+ * Called when extension is enabled.
+ */
 function enable() {
     _indicator = new UptimeIndicator();
-    // Using simple ID string for status area
     Main.panel.addToStatusArea('uptime-notifier', _indicator);
 }
 
+/**
+ * Called when extension is disabled or GNOME Shell exits.
+ * Must clean up all resources.
+ */
 function disable() {
     if (_indicator) {
         _indicator.destroy();
