@@ -1,1 +1,22 @@
 schemas/gschemas.compiled
+
+# Logs
+*.log
+
+# IDE files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+*~
+*.swp
+*.tmp
+
+*.zip
+
+*.md
+!README.md
