@@ -14,5 +14,5 @@
     ],
     "url": "https://github.com/shivamksharma/uptime-notifier",
     "settings-schema": "org.gnome.shell.extensions.uptime-notifier",
-    "version": 1
+    "version": 2
 }
