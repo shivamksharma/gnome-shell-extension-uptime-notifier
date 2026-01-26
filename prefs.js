@@ -1,4 +1,4 @@
-const { Gtk, Gio, Adw, GObject } = imports.gi;
+const { Gtk, Gio } = imports.gi;
 const ExtensionUtils = imports.misc.extensionUtils;
 
 function init() {
