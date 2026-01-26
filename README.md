@@ -30,10 +30,10 @@ A lightweight, non-intrusive GNOME Shell extension that displays the system upti
 
 ## Compatibility
 
--   **GNOME Shell**: 42 - 49
+-   **GNOME Shell**: 42 - 49 (single codebase, GTK3/GTK4 auto-detection)
 -   **Display Server**: Wayland & X11
 
 ## Architecture
 
 -   **Uptime Source**: Uses `uptime -p` for accurate, formatted output.
--   **Preferences**: Built with GTK4 and Libadwaita for a native GNOME 45+ look.
+-   **Preferences**: Auto-detects GTK version (GTK3 for GNOME 42, GTK4 for GNOME 43+).
