@@ -5,9 +5,6 @@ const Main = imports.ui.main;
 const PanelMenu = imports.ui.panelMenu;
 const ExtensionUtils = imports.misc.extensionUtils;
 
-// ByteArray for GNOME 42/43 compatibility (TextDecoder not always available)
-const ByteArray = imports.byteArray;
-
 // Constants
 const UPDATE_INTERVAL_MIN = 10; // Minimum update interval in seconds
 const DEFAULT_UPDATE_INTERVAL = 60; // Default update interval in seconds
@@ -18,12 +15,8 @@ const COMMAND = 'uptime -p';
 function safeDecodeStdout(stdout) {
     // Handle different GJS versions: stdout can be Uint8Array, ByteArray, or String
     if (stdout instanceof Uint8Array) {
-        // Use TextDecoder if available (GNOME 44+), otherwise fallback to ByteArray
-        if (typeof TextDecoder !== 'undefined') {
-            return new TextDecoder().decode(stdout).trim();
-        } else {
-            return ByteArray.toString(stdout).trim();
-        }
+        // Use TextDecoder (available in GNOME 42+)
+        return new TextDecoder().decode(stdout).trim();
     } else {
         return stdout.toString().trim();
     }

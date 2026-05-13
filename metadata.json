@@ -5,7 +5,7 @@
   "shell-version": ["45", "46", "47", "48", "49"],
   "url": "https://github.com/shivamksharma/uptime-notifier",
   "settings-schema": "org.gnome.shell.extensions.uptime-notifier",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "gettext-domain": "uptime-notifier",
   "donations": {
     "buymeacoffee": "shivamksharma"

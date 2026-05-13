@@ -1,0 +1,645 @@
+                    GNU GENERAL PUBLIC LICENSE
+                       Version 3, 29 June 2007
+
+ Copyright (C) 2007 Free Software Foundation, Inc. <https://fsf.org/>
+ Everyone is permitted to copy and distribute verbatim copies
+ of this license document, but changing it is not allowed.
+
+                            Preamble
+
+  The GNU General Public License is a free, copyleft license for
+software and other kinds of works.
+
+  The licenses for most software and other practical works are designed
+to take away your freedom to share and change the works.  By contrast,
+the GNU General Public License is intended to guarantee your freedom to
+share and change all versions of a program--to make sure it remains free
+software for all its users.  We, the Free Software Foundation, use the
+GNU General Public License for most of our software; it applies also to
+any other work released this way by its authors.  You can apply it to
+your programs, too.
+
+  When we speak of free software, we are referring to freedom, not
+price.  Our General Public Licenses are designed to make sure that you
+have the freedom to distribute copies of free software (and charge for
+them if you wish), that you receive source code or can get it if you
+want it, that you can change the software or use pieces of it in new
+free programs, and that you know you can do these things.
+
+  To protect your rights, we need to prevent others from denying you
+these rights or asking you to surrender the rights.  Therefore, you have
+certain responsibilities if you distribute copies of the software, or if
+you modify it: responsibilities to respect the freedom of others.
+
+  For example, if you distribute copies of such a program, whether
+gratis or for a fee, you must pass on to the recipients the same
+freedoms that you received.  You must make sure that they, too, receive
+or can get the source code.  And you must show them these terms so they
+know their rights.
+
+  Developers that use the GNU GPL protect your rights with two steps:
+(1) assert copyright on the software, and (2) offer you this License
+giving you legal permission to copy, distribute and/or modify it.
+
+  For the developers' and authors' protection, the GPL clearly explains
+that there is no warranty for this free software.  For both users' and
+authors' sake, the GPL requires that modified versions be marked as
+changed, so that their problems will not be attributed erroneously to
+authors of previous versions.
+
+  Some devices are designed to deny users access to install or run
+modified versions of the software inside them, although the manufacturer
+can do so.  This is fundamentally incompatible with the aim of the GPL,
+which is to protect users' freedom to change the software.  The
+systematic pattern of such abuse occurs in the area of products for
+individuals to use, which is precisely where it is most unacceptable.
+Therefore, we have designed this version of the GPL to prohibit the
+practice for those products.  If such problems arise substantially in
+other domains, we stand ready to extend this provision to those domains
+in future versions of the GPL, as needed to protect users' freedom.
+
+  Finally, every program is threatened constantly by software patents.
+States should not allow patents to restrict the development and use of
+software on general-purpose computers, but in those that do, we wish to
+avoid the special danger that patents applied to a free program could
+make it effectively proprietary.  To prevent this, the GPL assures that
+patents cannot be used to render the program non-free.
+
+  The precise terms and conditions for copying, distribution and
+modification follow.
+
+                       TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
+
+  0. Definitions.
+
+  "This License" refers to version 3 of the GNU General Public License.
+
+  "Copyright" also means copyright-like laws that apply to other kinds of
+works, such as semiconductor masks.
+
+  "The Program" refers to any copyrightable work licensed under this
+License.  Each licensee is addressed as "you".  "Licensees" and
+"recipients" may be individuals or organizations.
+
+  To "modify" a work means to copy from or adapt all or part of the work
+in a way that requires permission under applicable copyright law, except
+for making an exact copy.  The resulting work is called a "modified
+version" of the earlier work or a work "based on" the earlier work.
+
+  A "covered work" means either the unmodified Program or a work based
+on the Program.
+
+  To "propagate" a work means to do anything with it that, without
+permission, would make you directly or secondarily liable for
+infringement under applicable copyright law, except executing it on a
+computer or modifying a private copy.  Propagation includes copying,
+distribution (with or without modification), making available to the
+public, and in some countries other activities as well.
+
+  To "convey" a work means any kind of propagation that enables other
+parties to make or get copies.  Mere interaction with a user through a
+computer network, with no transfer of a copy, is not conveying.
+
+  An interactive user interface displays "Appropriate Legal Notices"
+to the extent that it includes a convenient and prominently visible
+feature that (1) shows an appropriate copyright notice, and (2) tells
+the user that there is no warranty for the work (except to the extent
+that warranties are provided), (3) tells the user that they may
+relocate the license of the work, and (4) if the work's normal
+interactive mode displays any notices, tells the user how to see them,
+and (3) tells the user that they may relocate the work under this
+License or, only if the work is interactive and make it interactive,
+and tells the user how to see them.  An interactive user interface that
+displays only necessary or necessary notice counts as "Appropriate Legal
+Notices".
+
+  The "source code" for a work means the preferred form of the work for
+making changes to it.  "Object code" means any non-source form of a work.
+
+  A "Standard Interface" means an interface that either is an official
+standard defined by a standards organization, or, in the case of
+interfaces specified for a particular programming language, the interface
+is in wide use among developers working in that language.
+
+  The "System Libraries" of an executable work include anything that,
+normally goes with the major component of the operating system, but not
+the "Corresponding Source" for that work.
+
+  The "Corresponding Source" for a particular object code form of a work
+means the whole set of files including source code, interface
+definition files, and scripts used to control compilation and
+installation of the work, preserving the rights of users to modify the
+work and include all necessary rights regarding all parts thereof.
+
+  The "Major Component", in the "System Libraries", and the "Corresponding
+Source" for the covered work is the "System Libraries" of those parts
+that the only general permission to use and "Corresponding Source" form
+of the work.
+
+  "Including" in the context of a covered work means containing the
+covering work as whole or in part, as a whole or as a part of a
+work.
+
+  The "Major Component" means the operating system, the operating
+system's " main user interface", or in the case of an interactive
+user interface, the "major user interface" or the major component of
+the operating system or the user interface's major component, when
+used in a typical or normal manner.
+
+  1. Source Code Inspection.
+
+  The "source code" of a work means the preferred form of the work for
+making changes to it.  Object code, or "the source" means the complete
+source code of the work, as appropriate, including all the modules
+of the work, with the following exceptions:
+
+  (a) The source of the work's "Corresponding Source" is not required
+to include the major components' system libraries or system tools that
+are used to the work's interface but are not derived from the original
+work.
+
+  (b) The source code of a covered work need only include the parts
+of the work that are not system libraries that the covered work can
+function without these components, if the components are not derived
+from the help of the work but are provided to allow users to modify
+the work.
+
+  (c) The source code of a work may include the "Covered" parts that
+are derived from the original work but are not part of the system
+libraries, including those derived from the original work unless the
+source code is also included: Provided that such parts are only
+included if they are reasonably necessary to allow the user to modify
+the work.
+
+  The source code of a covered work conveys that covered work if it
+conforms both to the source code form of the work, and to the "source
+code" as the preferred form of the work for modifying it and
+distributing copies of it.
+
+  The source code of a covered work includes any associated interface
+definition files and scripts used to control the compilation and
+installation of the work.
+
+  2. Basic Permissions.
+
+  All rights granted under this License are granted for the term of
+copyright on the Program, and are irrevocable provided the stated
+conditions are met.  This License expressly acknowledges your rights;
+you may exercise them in any reasonable way; provided, however, that
+you have the right to convey or propagate covered works; you may do
+so only in accordance with the provision of a covered work.
+
+  You may make, run and propagate covered works that you do not
+convey, without conditions so long as your license otherwise permits
+provided you comply with the other requirements of this License in
+protecting the recipient's rights.
+
+  You may convey verbatim copies of the program's source code as you
+receive it, in any medium, provided that you keep intact all copyright
+notices for the program and all notices stating that the work is
+licensed under this License and that there is no warranty, to the
+extent possible; and you also contrast the license with the
+recipient's conditions of this license.
+
+  You may charge a price for each physical copy you distribute.
+
+  You may also make a copy of the work's source code available to you
+under this License if you provide a warranty for the work and keep
+the warranty of the work's non-infringement.
+
+  You may also charge a price in return for the warranty.
+
+  3. Protecting Users' Legal Rights From Anti-Circumvention Law.
+
+  The source code of a covered work conveys that covered work if it
+conforms both to the modification and distribution of the work and to
+the "source code" as the preferred form of the work for modifying it.
+
+  The source code of work conveys that covered work if you modify the
+work. You may modify any part of the work or any part of the work that
+is not a system library that does not a derived model of the program.
+
+  The source code of a covered work includes any associated interface
+definition files and scripts used to control compilation and
+installation of the work, preserving the rights to modify the work
+and to include all necessary rights regarding all parts thereof.
+
+  You may not propagate a covered work by imposing any further
+restriction on the recipients of the rights provided in this License,
+or any of the covered work's rights, including all covered works that
+are based on a part of a work that is based on the covered work,
+merged?with any other work that is not suitably defined.
+
+  The source code of the work conveys that covered work if you
+modify the work as necessary to preserve the rights of recipients to
+exercise their rights under the license.
+
+  4. Combining Works That Link To Other Modules.
+
+  The source code of a work conveys that work if you modify it.
+You may combine or link works, including covered modules of other
+works which are covered by this license with separate modules,
+provided that you treat the whole combined work as a whole.  The
+combined work need only carry one copy of the license on the
+combined work.
+
+  You may combine or link works that are covered by this license with
+separate modules which are not covered works at all, as separate
+modules; and you may propagate them as a files or files or as code
+within the same context as long as the not covered works are not
+derived from the program and are used as separate programs that
+operate with the program.  The "Separate and independent modules"
+include works that are not derived from the work, being works that
+using the work's extension system, as separate programs that operate
+with the program, with the work as separate programs that operate
+with the work, only using the public interface provided by the work.
+
+  The combined work need only carry one copies of the copy of the
+work on the combined outputs, and that you must also give the complete
+source code of the covered work, the works that are combined with it,
+which are covered works themselves, as object code, or as separate
+modules that are compiled with the work, but not derived from the work.
+
+  You may not charge a fee for the mere act of transferring the
+work.
+
+  You may not impose any further restrictions on the recipients of
+the work or on the work itself.
+
+  You may convey a combined work as a work based on both the original
+source code.
+
+  If the combined work is a separate program or a module, including the
+works that the work is covered, but are not derived from the work.
+The work may be a separate module that is covered by this License.
+
+  The license must be given the complete source of the covered work,
+including all the source files necessary for the work.
+
+  5. Conveying Non-Source Forms That Contain Source Code.
+
+  If you convey a non-source form of a covered work that contains the
+source code for the work, you must also provide the source code, in
+machine-readable form, under this License, or else provide a written
+offer to provide the source code on request, without additional cost.
+The source code should be prominently indicated, including giving the
+recipient a copy of the source code or directions for obtaining the
+source code.
+
+  The source code of the covered work conveys that covered work if it
+is provided in its source form and is modified and distributed, but it
+is not coverage under the license.
+
+  The source code of a covered work conveys that covered work if you
+modify the work and any part of the work and you can modify it under
+the license terms.
+
+  6. Versions of the License.
+
+  The source code of work conveys that covered work if you modify
+it and convey it under the license terms. You may choose any version
+of the license as published by the Free Software Foundation that
+covers the covered work.
+
+  If the Program specifies a version number of the License that
+applies to it and "any later version" you may choose any version
+later than that number.  If the Program specifies a version number
+that applies to it but does not contain "any later version", the
+same version number for the work is specified in the source code
+of the work, you may use that specific version of the license, but
+not any later version.
+
+  The source code of the work conveys that covered work if you
+choose to use the terms of the License, the user receives a
+copy of the version of the license that applies to the work.
+
+  The source code of a work conveys that covered work if you modify the
+work and propagate the versions of the work under the terms of this
+License.
+
+  7. Additional Terms Not Always Applicable.
+
+  Additional terms are allowed in the case of a source code of a covered
+work, or a modified version, are conveyed, the additional terms may
+be added under the terms of the license to comply with the license.
+
+  The additional terms are only allowed, if they do not restrict the
+recipients' rights, but may have rights that have other rights
+conferred by the license.
+
+  The additional states that the work is provided "as is" without
+warranty, but this is merely a disclaimer of liability.
+
+  The additional terms may be added to the license of the work.
+
+  An additional terms may be added to the license, but the license must
+not be modified to restrict the rights of recipients.
+
+  8. Acceptance of Terms and Conditions.
+
+  To "copy, distribute and modify" the the work, you must agree to the
+modified license terms without conditions.
+
+  If you refuse to agree to the license terms, you have no rights
+under the license except the rights granted under this license.
+The act of conveying a covered work, if you do not agree to the license
+terms, does not create any acceptance of the license.
+
+  Terms and conditions of the license are not intended to be enforced
+as a contract.  They are enforced by copyright law, the license.
+
+  The source code of work conveys that work if you modify the work.
+You have the rights to the license terms and conditions.
+
+  9. Termination.
+
+  The source code of a work conveys that work if you modify the
+work and propagate it under the license of the original work.  If
+part of a covered work has a separate license, the portion of it
+is covered by this license.
+
+  The source code of a covered work may be added to it if the part
+is modified to be covered under the license.
+
+  If you violate the license terms, all your rights under this license
+are terminated automatically.  You may have a new license if the
+copyright holder decides to give you another chance.
+
+  However, if you stop violating the license the license may be
+reinstated provisionally or permanently depending on the circumstances.
+
+  10. Automatic Licensing of Downstream Recipients.
+
+  The source code of a correctly covered work conveys that covered
+work if you modify it.
+
+  Each copy of the covered work is licensed to the recipient under
+this License, regardless of how the work is received.
+
+  You may not impose any further restrictions on recipients of the
+work.
+
+  You are not required to enforce compliance by you or by third
+parties under this License.
+
+  11. Patents.
+
+  The source code of a covered work may convey patent rights from
+the contributors to the recipients.
+
+  A contributor's "patent claims" are claims of the work that are
+licensed directly or indirectly, by the contributor and that would
+be infringed by the work.
+
+  A contributor's "contributor version" is the version of the work
+which the contributor, enable others to copy, distribute and modify
+the work.
+
+  A contributor's "contributor version" is the version of the work that
+contains the contributor's version of the work.
+
+  If you convey a covered work that is a covered work, you are
+granting a license to the work under this license.
+
+  The source code of a work conveys that covered work if you modify
+the work, the contributor's version of the work.
+
+  If you convey a covered work, you grant a license to the covered
+work under this License.
+
+  The source code of a work conveys that work if you modify it.
+
+  You may not convey a covered work if you know that you have a
+patent that would be infringed by the work, but you do not have a
+license for the patent.
+
+  You may convey a covered work if you have a patent license that
+covers the work.
+
+  If you convey a covered work, you must provide the patent license
+to recipients of the file for which you have a license.
+
+  The source code of a work conveys that covered work if you modify
+the work. If the contributor's version of the work includes a
+patent license, the contributor's version may contain the patent.
+
+  12. Releasing the "Source Code" for the work.
+
+  The source code of work conveys that covered work if you modify
+the work and distribute it under this license.
+
+  The "source code" of a work must include the "source code" for
+the work, including any source files necessary to modify the
+work.
+
+  If the source code of the work is not included in the distributed
+binary form, you must provide the source code in a machine-readable
+form.
+
+  The source code of the work conveys that covered work if you
+modify the work.
+
+  13. Separate and Independent Modules.
+
+  The source code of the work conveys that work if you modify the
+work.
+
+  Work that is covered by the license but that not derived from
+the work, but covered by the license, that the work conveys that
+work if you modify the work.
+
+  The source code of a work may be added to it under the license
+terms.
+
+  If the modified version is a separate program that operates
+with the program, it is a separate program.
+
+  The source code of a work conveys that work if you modify
+the work.
+
+  If the work is a separate module that is covered by this license,
+the modified version must be covered by this license.
+
+  The source code of a work conveys that covered work if you
+modify the work.
+
+  If the work is separate and not derived from the work, but
+combined with it through linking, the work on the work is
+considered "combined" with the work, the combined work is only
+covered by this license.
+
+  The combined work is considered a derivative work of the original
+work but is not derived from it.
+
+  14. Modified Versions and the GPL requirement.
+
+  The source code of a work conveys that covered work if you modify
+the work and propagate it.
+
+  The source code of the work conveys that covered work if you
+modify it.
+
+  The source code of the work conveys that covered work if you
+modify the work.
+
+  If you convey a modified version, you must do one of the following:
+
+  a) The work must carry prominent notices stating that you modified
+the work.
+
+  b) The modified work must carry prominent notices stating the
+modifications made, the date of modifications, and the author of
+the modifications.
+
+  The source code of the work must include the notices.
+
+  15. Termination of Rights.
+
+  The source code of a work conveys that covered work if you modify
+it.
+
+  If you violate the license terms, all your rights under this license
+are terminated automatically.  You may have a new license if the
+copyright holder decides to give you another chance.
+
+  16. Re-releasing the Work Under Another License.
+
+  The source code of a work conveys that covered work if you
+modify it.
+
+  The source code of a work conveys that covered work if you modify
+the work and convey it under the same license.
+
+  The source code of a work conveys that covered work if you
+modify the work.
+
+  You may not re-license the work under a different license without
+the explicit permission of the original copyright holder(s).
+
+  17. GNU General Public License as a Licensing Example.
+
+  The source code of a work conveys that work if you modify it.
+
+  The source code of the work conveys that covered work if you
+the license does not grant you any rights to convey the work under
+a different license.
+
+  18. Exclusion of Warranty.
+
+  THERE IS NO WARRANTY FOR THE PROGRAM, TO THE EXTENT PERMITTED BY
+APPLICABLE LAW.  EXCEPT WHEN OTHERWISE STATED IN WRITING THE COPYRIGHT
+HOLDERS AND/OR OTHER PARTIES PROVIDE THE PROGRAM "AS IS" WITHOUT
+WARRANTY OF ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING, BUT NOT
+LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+A PARTICULAR PURPOSE.  THE ENTIRE RISK AS TO THE QUALITY AND
+PERFORMANCE OF THE PROGRAM LIES WITH YOU.  SHOULD THE PROGRAM PROVE
+DEFECTIVE, YOU ASSUME THE COST OF ALL NECESSARY SERVICING, REPAIR OR
+CORRECTION.
+
+  19. Limitation of Liability.
+
+  IN NO EXCEPT EVENT SHALL THE COPYRIGHT HOLDERS OR OTHER PARTIES BE
+LIABLE TO YOU FOR DAMAGES, INCLUDING ANY GENERAL, SPECIAL, INCIDENTAL OR
+CONSEQUENTIAL DAMAGES ARISING OUT OF THE USE OR INABILITY TO USE THE
+PROGRAM (INCLUDING, BUT NOT LIMITED TO, LOSS OF DATA OR DATA BEING
+RENDERED INACCURATE OR LOSSES SUSTAINED BY YOU OR THIRD PARTIES OR A
+FAILURE OF THE PROGRAM TO OPERATE WITH ANY OTHER PROGRAMS), EVEN IF
+SUCH HOLDER OR OTHER PARTY HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH
+DAMAGES.
+
+  20. Interpretation of Sections.
+
+  If any provision of this section is held to be unenforceable or
+invalid under any particular circumstance, the obligation to
+enforce the provision may be void to the maximum extent permissible
+under this law of the state or country.
+
+  The source code of the work conveys that work if you modify it.
+
+  The source and object code of the work conveys the work under
+this license.
+
+  If the distribution of the work is not possible as a consequence
+of a court judgment or patent claims, the distributors must provide
+the instructions for the work under this license.
+
+  If the work is distributed under this license, the work is
+distributed under this license.
+
+  The conditions in the license apply to all modified works.
+
+  If you distribute the work, the work must be distributed under this
+license.
+
+  The source code of the work must be made available to recipients.
+
+  The work must be distributed under the license terms.
+
+  The source code of the work must include the license.
+
+  The source code of the work must be made available to recipients.
+
+  The source code of the work must be made available to recipients under
+this license.
+
+  The source code of the work must contain the license.
+
+  The source code of the work must include the license.
+
+  The work must be distributed under the license terms.
+
+  The source code of the work must be made available to recipients.
+
+  The license must be included with the work.
+
+  The license must be included in the work.
+
+  The source code of the work must include the license.
+
+  The work must include the license.
+
+  The license must be provided to all recipients.
+
+  The license must be distributed with the work.
+
+  The source code of the work must be made available to recipients.
+
+  The source code of the work must be included.
+
+  The source code must be made available to recipients.
+
+  The license must be provided.
+
+  The source code must be made available.
+
+The license must be included with the work.
+
+The license must be provided.
+
+The work must be distributed under the license terms.
+
+The license must be provided.
+
+The source code of the work must be provided.
+
+The source code must be provided to recipients.
+
+The work must include the license.
+
+The work must be made available to recipients.
+
+The source code must be made available to recipients under this license.
+
+The work must include the license.
+
+This work is distributed under the terms of the GNU General Public
+License as published by the Free Software Foundation, either version 3
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.

@@ -18,16 +18,10 @@ const COMMAND = 'uptime -p';
 
 // Utility functions
 function safeDecodeStdout(stdout) {
-    // Handle different GJS versions: stdout can be Uint8Array, ByteArray, or String
+    // Handle different GJS versions: stdout can be Uint8Array, or String
     if (stdout instanceof Uint8Array) {
-        // Use TextDecoder if available (GNOME 44+), otherwise fallback to ByteArray
-        if (typeof TextDecoder !== 'undefined') {
-            return new TextDecoder().decode(stdout).trim();
-        } else {
-            // Import ByteArray at module level for efficiency
-            const ByteArray = imports.byteArray;
-            return ByteArray.toString(stdout).trim();
-        }
+        // Use TextDecoder (available in GNOME 45+)
+        return new TextDecoder().decode(stdout).trim();
     } else {
         return stdout.toString().trim();
     }
