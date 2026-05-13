@@ -2,7 +2,7 @@
   "name": "Uptime Notifier",
   "description": "Displays system uptime in the top panel. Reliable, lightweight, and customizable. Supports human-readable and compact formats, adjustable update intervals, and optional icon display.",
   "uuid": "uptime-notifier@sam.shell-extension",
-  "shell-version": ["45", "46", "47", "48", "49"],
+  "shell-version": ["42", "43", "44"],
   "url": "https://github.com/shivamksharma/uptime-notifier",
   "settings-schema": "org.gnome.shell.extensions.uptime-notifier",
   "version": "2.0.0",

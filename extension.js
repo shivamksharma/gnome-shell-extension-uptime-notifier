@@ -1,4 +1,3 @@
-/* exported init enable disable */
 'use strict';
 
 const { GLib, St, Clutter, GObject } = imports.gi;
@@ -8,6 +7,37 @@ const ExtensionUtils = imports.misc.extensionUtils;
 
 // ByteArray for GNOME 42/43 compatibility (TextDecoder not always available)
 const ByteArray = imports.byteArray;
+
+// Constants
+const UPDATE_INTERVAL_MIN = 10; // Minimum update interval in seconds
+const DEFAULT_UPDATE_INTERVAL = 60; // Default update interval in seconds
+const ICON_NAME = 'preferences-system-time-symbolic';
+const COMMAND = 'uptime -p';
+
+// Utility functions
+function safeDecodeStdout(stdout) {
+    // Handle different GJS versions: stdout can be Uint8Array, ByteArray, or String
+    if (stdout instanceof Uint8Array) {
+        // Use TextDecoder if available (GNOME 44+), otherwise fallback to ByteArray
+        if (typeof TextDecoder !== 'undefined') {
+            return new TextDecoder().decode(stdout).trim();
+        } else {
+            return ByteArray.toString(stdout).trim();
+        }
+    } else {
+        return stdout.toString().trim();
+    }
+}
+
+function formatCompact(rawText) {
+    return rawText
+        .replace(/^up\s+/, '')
+        .replace(/ years?,?/g, 'y')
+        .replace(/ weeks?,?/g, 'w')
+        .replace(/ days?,?/g, 'd')
+        .replace(/ hours?,?/g, 'h')
+        .replace(/ minutes?/g, 'm');
+}
 
 const UptimeIndicator = GObject.registerClass(
     class UptimeIndicator extends PanelMenu.Button {
@@ -27,7 +57,7 @@ const UptimeIndicator = GObject.registerClass(
 
             // Icon
             this._icon = new St.Icon({
-                icon_name: 'preferences-system-time-symbolic',
+                icon_name: ICON_NAME,
                 style_class: 'system-status-icon',
             });
 
@@ -38,7 +68,7 @@ const UptimeIndicator = GObject.registerClass(
             });
             this._box.add_child(this._label);
 
-            this._timerId = null;
+            this._timerId = 0;
 
             // Connections
             this._settingsChangedId = this._settings.connect('changed', () => {
@@ -74,28 +104,21 @@ const UptimeIndicator = GObject.registerClass(
 
         _getUptimeText() {
             try {
-                let [success, stdout] = GLib.spawn_command_line_sync('uptime -p');
+                let [success, stdout] = GLib.spawn_command_line_sync(COMMAND);
 
                 if (!success) {
                     return 'Err';
                 }
 
                 // Handle different GJS versions: stdout can be Uint8Array, ByteArray, or String
-                let rawOutput;
-                if (stdout instanceof Uint8Array) {
-                    // GNOME 42/43: use ByteArray.toString(), GNOME 44+: TextDecoder available
-                    if (typeof TextDecoder !== 'undefined') {
-                        rawOutput = new TextDecoder().decode(stdout).trim();
-                    } else {
-                        rawOutput = ByteArray.toString(stdout).trim();
-                    }
-                } else {
-                    rawOutput = stdout.toString().trim();
-                }
+                let rawOutput = safeDecodeStdout(stdout);
 
                 return this._formatOutput(rawOutput);
             } catch (e) {
-                logError(e, 'Uptime Notifier Error');
+                // Use global logError if available
+                if (typeof logError === 'function') {
+                    logError(e.message, 'Uptime Notifier');
+                }
                 return 'Error';
             }
         }
@@ -118,16 +141,24 @@ const UptimeIndicator = GObject.registerClass(
         }
 
         _resetTimer() {
-            if (this._timerId) {
+            // Remove existing timer if any
+            if (this._timerId > 0) {
                 GLib.source_remove(this._timerId);
-                this._timerId = null;
+                this._timerId = 0;
             }
 
+            // Get and validate update interval
             let interval = this._settings.get_int('update-interval');
-            if (interval < 1) interval = 60;
+            if (interval < UPDATE_INTERVAL_MIN) {
+                interval = DEFAULT_UPDATE_INTERVAL;
+            }
 
+            // Create new timer
             this._timerId = GLib.timeout_add_seconds(GLib.PRIORITY_DEFAULT, interval, () => {
-                if (!this._timerId) return GLib.SOURCE_REMOVE; // Safety check
+                // Safety check: if timer was cleared, remove source
+                if (this._timerId === 0) {
+                    return GLib.SOURCE_REMOVE;
+                }
                 this._updateUI();
                 return GLib.SOURCE_CONTINUE;
             });
@@ -135,14 +166,15 @@ const UptimeIndicator = GObject.registerClass(
 
         destroy() {
             // Disconnect settings FIRST to prevent callbacks during cleanup
-            if (this._settingsChangedId) {
+            if (this._settingsChangedId > 0) {
                 this._settings.disconnect(this._settingsChangedId);
-                this._settingsChangedId = null;
+                this._settingsChangedId = 0;
             }
 
-            if (this._timerId) {
+            // Remove timer
+            if (this._timerId > 0) {
                 GLib.source_remove(this._timerId);
-                this._timerId = null;
+                this._timerId = 0;
             }
 
             // Nullify settings to release reference
@@ -154,26 +186,15 @@ const UptimeIndicator = GObject.registerClass(
 
 let _indicator = null;
 
-/**
- * Called once when extension is loaded (not enabled).
- * Avoid heavy initialization here.
- */
 function init() {
     // No translations to initialize (no locale/ directory)
 }
 
-/**
- * Called when extension is enabled.
- */
 function enable() {
     _indicator = new UptimeIndicator();
     Main.panel.addToStatusArea('uptime-notifier', _indicator);
 }
 
-/**
- * Called when extension is disabled or GNOME Shell exits.
- * Must clean up all resources.
- */
 function disable() {
     if (_indicator) {
         _indicator.destroy();
