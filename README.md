@@ -48,8 +48,8 @@ GNOME 45-49.
 Build both packages:
 
 ```sh
-git clone https://github.com/shivamksharma/gnome-shell-extensions-uptime-notifier.git
-cd gnome-shell-extensions-uptime-notifier
+git clone https://github.com/shivamksharma/gnome-shell-extension-uptime-notifier.git
+cd gnome-shell-extension-uptime-notifier
 ./scripts/build.sh
 ```
 
