@@ -22,11 +22,12 @@ The repository contains two purpose-built implementations:
 | Implementation | GNOME Shell | Source directory | Preferences |
 | -------------- | ----------- | ---------------- | ----------- |
 | Legacy         | 42, 43, 44  | `legacy/`        | `prefs/legacy/prefs.js` |
-| Modern         | 45, 46, 47, 48, 49 | `src/`    | `prefs/prefs.js` |
+| Modern         | 45, 46, 47, 48, 49, 50 | `src/`    | `prefs/prefs.js` |
 
-GNOME 50 and 51 have not been tested and are intentionally not declared. Use the
-package that matches your GNOME Shell version; do not install the legacy package
-on GNOME 45+ or the modern package on GNOME 42-44.
+GNOME 51 has not been tested and is intentionally not declared. GNOME 50 was
+verified with a headless enable/disable container harness; use the package that
+matches your GNOME Shell version and do not install the legacy package on
+GNOME 45+ or the modern package on GNOME 42-44.
 
 ## Installation
 
