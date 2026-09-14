@@ -1,3 +1,8 @@
+# Build output
+/build/
+*.zip
+
+# Compiled GSettings schema
 schemas/gschemas.compiled
 
 # Logs
@@ -15,8 +20,3 @@ Thumbs.db
 *~
 *.swp
 *.tmp
-
-*.zip
-
-*.md
-!README.md

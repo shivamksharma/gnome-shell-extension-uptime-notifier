@@ -1,83 +1,72 @@
-// Uptime Notifier Preferences - GNOME Shell Extension
-// Modern ESModules version for GNOME 45-49
+// Uptime Notifier preferences for GNOME Shell 45-49.
 
-import Gtk from 'gi://Gtk?version=4.0';
 import Adw from 'gi://Adw';
-import { ExtensionPreferences } from 'resource:///org/gnome/shell/extensions/prefs.js';
-import { getSettings } from 'resource:///org/gnome/shell/misc/extensionUtils.js';
+import Gio from 'gi://Gio';
+import Gtk from 'gi://Gtk?version=4.0';
+
+import {ExtensionPreferences} from 'resource:///org/gnome/shell/extensions/prefs.js';
+
+const FORMATS = ['human', 'compact'];
+const INTERVALS = [30, 60, 300];
+const INTERVAL_LABELS = ['30 seconds', '60 seconds', '5 minutes'];
 
 export default class UptimeNotifierPreferences extends ExtensionPreferences {
     fillPreferencesWindow(window) {
-        const settings = getSettings('org.gnome.shell.extensions.uptime-notifier');
+        const settings = this.getSettings();
 
-        // Main page
-        const page = new Adw.PreferencesPage();
+        const page = new Adw.PreferencesPage({
+            title: 'Uptime',
+            icon_name: 'preferences-system-time-symbolic',
+        });
         window.add(page);
 
-        // Format group
-        const formatGroup = new Adw.PreferencesGroup();
-        formatGroup.set_title('Display Settings');
-        page.add(formatGroup);
-
-        // Format setting
-        const formatRow = new Adw.ComboRow({
-            title: 'Display Format',
-            subtitle: 'Choose how uptime is displayed',
+        const displayGroup = new Adw.PreferencesGroup({
+            title: 'Display',
         });
-        formatGroup.add(formatRow);
+        page.add(displayGroup);
 
         const formatModel = new Gtk.StringList();
-        formatModel.append('human');
-        formatModel.append('compact');
-        formatRow.set_model(formatModel);
-        formatRow.set_selected(settings.get_string('format') === 'human' ? 0 : 1);
+        for (const format of FORMATS)
+            formatModel.append(format);
+
+        const formatRow = new Adw.ComboRow({
+            title: 'Display Format',
+            subtitle: 'How uptime is shown in the panel',
+            model: formatModel,
+        });
+        const formatIndex = FORMATS.indexOf(settings.get_string('format'));
+        formatRow.selected = formatIndex < 0 ? 0 : formatIndex;
         formatRow.connect('notify::selected', () => {
-            const selected = formatModel.get_string(formatRow.get_selected());
-            settings.set_string('format', selected);
+            settings.set_string('format', FORMATS[formatRow.selected]);
         });
+        displayGroup.add(formatRow);
 
-        // Update interval group
-        const intervalGroup = new Adw.PreferencesGroup();
-        intervalGroup.set_title('Update Settings');
-        page.add(intervalGroup);
-
-        // Update interval setting
-        const intervalRow = new Adw.ComboRow({
-            title: 'Update Interval',
-            subtitle: 'How often to refresh the uptime display',
-        });
-        intervalGroup.add(intervalRow);
-
-        const intervalModel = new Gtk.StringList();
-        intervalModel.append('30');
-        intervalModel.append('60');
-        intervalModel.append('300');
-        intervalRow.set_model(intervalModel);
-
-        const currentInterval = settings.get_int('update-interval').toString();
-        let intervalIndex = 1; // Default to 60 seconds
-        if (currentInterval === '30') intervalIndex = 0;
-        else if (currentInterval === '300') intervalIndex = 2;
-        intervalRow.set_selected(intervalIndex);
-        intervalRow.connect('notify::selected', () => {
-            const selected = intervalModel.get_string(intervalRow.get_selected());
-            settings.set_int('update-interval', parseInt(selected, 10));
-        });
-
-        // Show icon group
-        const iconGroup = new Adw.PreferencesGroup();
-        iconGroup.set_title('Icon Settings');
-        page.add(iconGroup);
-
-        // Show icon setting
         const iconRow = new Adw.SwitchRow({
             title: 'Show Icon',
-            subtitle: 'Display a clock icon in the panel',
+            subtitle: 'Display a clock icon next to the uptime',
         });
-        iconGroup.add(iconRow);
-        iconRow.set_active(settings.get_boolean('show-icon'));
-        iconRow.connect('notify::active', () => {
-            settings.set_boolean('show-icon', iconRow.get_active());
+        settings.bind('show-icon', iconRow, 'active', Gio.SettingsBindFlags.DEFAULT);
+        displayGroup.add(iconRow);
+
+        const updateGroup = new Adw.PreferencesGroup({
+            title: 'Updates',
         });
+        page.add(updateGroup);
+
+        const intervalModel = new Gtk.StringList();
+        for (const label of INTERVAL_LABELS)
+            intervalModel.append(label);
+
+        const intervalRow = new Adw.ComboRow({
+            title: 'Update Interval',
+            subtitle: 'How often the uptime is refreshed',
+            model: intervalModel,
+        });
+        const intervalIndex = INTERVALS.indexOf(settings.get_int('update-interval'));
+        intervalRow.selected = intervalIndex < 0 ? 1 : intervalIndex;
+        intervalRow.connect('notify::selected', () => {
+            settings.set_int('update-interval', INTERVALS[intervalRow.selected]);
+        });
+        updateGroup.add(intervalRow);
     }
 }

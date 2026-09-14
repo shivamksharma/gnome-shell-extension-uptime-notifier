@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<schemalist gettext-domain="uptime-notifier">
+<schemalist>
   <schema id="org.gnome.shell.extensions.uptime-notifier" path="/org/gnome/shell/extensions/uptime-notifier/">
     <key name="format" type="s">
       <default>'human'</default>
-      <summary>Display Format</summary>
-      <description>Format of the uptime display. Values: 'human', 'compact'.</description>
+      <summary>Display format</summary>
+      <description>How uptime is displayed: "human" (for example "up 2 days, 4 hours") or "compact" (for example "2d 4h").</description>
       <choices>
         <choice value='human'/>
         <choice value='compact'/>
@@ -12,13 +12,14 @@
     </key>
     <key name="update-interval" type="i">
       <default>60</default>
-      <summary>Update Interval</summary>
-      <description>Time in seconds between updates.</description>
+      <summary>Update interval</summary>
+      <description>Number of seconds between uptime refreshes. The preferences offer 30, 60 and 300 seconds.</description>
+      <range min="30" max="300"/>
     </key>
     <key name="show-icon" type="b">
       <default>false</default>
-      <summary>Show Icon</summary>
-      <description>Whether to show an uptime icon in the panel.</description>
+      <summary>Show icon</summary>
+      <description>Whether to show a clock icon next to the uptime in the panel.</description>
     </key>
   </schema>
 </schemalist>

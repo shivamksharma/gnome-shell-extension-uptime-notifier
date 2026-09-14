@@ -1,96 +1,95 @@
-#!/bin/bash
+#!/usr/bin/env bash
+set -euo pipefail
 
-set -e
+# Build Uptime Notifier packages for GNOME 42-44 (legacy) and GNOME 45-49 (modern).
 
-# Build script for Uptime Notifier GNOME Shell extension
-# Creates separate packages for legacy (GNOME 42-44) and modern (GNOME 45-49) versions
+EXTENSION_UUID="uptime-notifier@shivamksharma.github.io"
+VERSION="3.0.0"
 
-EXTENSION_UUID="uptime-notifier@sam.shell-extension"
-LEGACY_VERSION="2.0.0"
-MODERN_VERSION="3.0.0"
+ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+BUILD_DIR="${ROOT_DIR}/build"
+SCHEMA_XML="schemas/org.gnome.shell.extensions.uptime-notifier.gschema.xml"
+REPRODUCIBLE_TIMESTAMP="202001010000"
 
-# Directories
-LEGACY_SRC_DIR="legacy"
-MODERN_SRC_DIR="src"
-PREFS_LEGACY_DIR="prefs/legacy"
-PREFS_MODERN_DIR="prefs"
-SCHEMAS_DIR="schemas"
-ASSETS_DIR="assets"
-LOCALE_DIR="locale"
-BUILD_DIR="$(pwd)/build"
+cd "${ROOT_DIR}"
 
-# Clean previous builds
+log() {
+    printf '%s\n' "$*"
+}
+
+require() {
+    command -v "$1" >/dev/null 2>&1 || {
+        log "Missing required command: $1" >&2
+        exit 1
+    }
+}
+
+require glib-compile-schemas
+require zip
+
 rm -rf "${BUILD_DIR}"
 mkdir -p "${BUILD_DIR}"
 
-echo "Building legacy version (GNOME 42-44)..."
+stage_common() {
+    local staging="$1"
+    mkdir -p "${staging}/schemas"
+    cp "${SCHEMA_XML}" "${staging}/schemas/"
+    cp "LICENSE" "${staging}/"
+}
 
-# Create staging directory
-STAGING_DIR="${BUILD_DIR}/staging-legacy"
-rm -rf "${STAGING_DIR}"
-mkdir -p "${STAGING_DIR}"
+make_zip() {
+    local staging="$1"
+    local output="$2"
+    # Normalise timestamps so the archive is byte-for-byte reproducible.
+    find "${staging}" -exec touch -t "${REPRODUCIBLE_TIMESTAMP}" {} +
+    (cd "${staging}" && zip -X -q -r "${output}" .)
+}
 
-# Copy legacy extension files directly to staging root
-cp "${LEGACY_SRC_DIR}/extension.js" "${STAGING_DIR}/"
-cp "${PREFS_LEGACY_DIR}/prefs.js" "${STAGING_DIR}/"
-cp "metadata-legacy.json" "${STAGING_DIR}/metadata.json"
-cp -r "${SCHEMAS_DIR}" "${STAGING_DIR}/"
-cp -r "${ASSETS_DIR}" "${STAGING_DIR}/" 2>/dev/null || true
-cp -r "${LOCALE_DIR}" "${STAGING_DIR}/" 2>/dev/null || true
-cp "README.md" "${STAGING_DIR}/"
-cp "LICENSE" "${STAGING_DIR}/" 2>/dev/null || true
+build_legacy() {
+    local staging="${BUILD_DIR}/staging-legacy"
+    local output="${BUILD_DIR}/${EXTENSION_UUID}-legacy-${VERSION}.zip"
 
-# Compile schemas for legacy
-if [ -d "${STAGING_DIR}/schemas" ]; then
-    echo "Compiling schemas for legacy version..."
-    glib-compile-schemas "${STAGING_DIR}/schemas/"
-fi
+    rm -rf "${staging}"
+    mkdir -p "${staging}"
 
-# Create legacy zip package (files at root)
-cd "${STAGING_DIR}"
-zip -r "${BUILD_DIR}/${EXTENSION_UUID}-${LEGACY_VERSION}.zip" ./
-cd - > /dev/null
+    cp legacy/extension.js legacy/indicator.js legacy/uptime.js "${staging}/"
+    cp prefs/legacy/prefs.js "${staging}/prefs.js"
+    cp metadata-legacy.json "${staging}/metadata.json"
+    stage_common "${staging}"
 
-echo "Legacy package created: ${BUILD_DIR}/${EXTENSION_UUID}-${LEGACY_VERSION}.zip"
+    # GNOME 42-44 load the compiled schema from the extension directory.
+    glib-compile-schemas --strict "${staging}/schemas/"
 
-# Cleanup staging
-rm -rf "${STAGING_DIR}"
+    make_zip "${staging}" "${output}"
+    rm -rf "${staging}"
+    log "Legacy package: ${output}"
+}
 
-echo "Building modern version (GNOME 45-49)..."
+build_modern() {
+    local staging="${BUILD_DIR}/staging-modern"
+    local output="${BUILD_DIR}/${EXTENSION_UUID}-modern-${VERSION}.zip"
 
-# Create staging directory
-STAGING_DIR="${BUILD_DIR}/staging-modern"
-rm -rf "${STAGING_DIR}"
-mkdir -p "${STAGING_DIR}"
+    rm -rf "${staging}"
+    mkdir -p "${staging}/shared"
 
-# Copy modern extension files directly to staging root
-cp "${MODERN_SRC_DIR}/extension.js" "${STAGING_DIR}/"
-cp "${PREFS_MODERN_DIR}/prefs.js" "${STAGING_DIR}/"
-cp "metadata.json" "${STAGING_DIR}/metadata.json"
-cp -r "${SCHEMAS_DIR}" "${STAGING_DIR}/"
-cp -r "${ASSETS_DIR}" "${STAGING_DIR}/" 2>/dev/null || true
-cp -r "${LOCALE_DIR}" "${STAGING_DIR}/" 2>/dev/null || true
-cp "README.md" "${STAGING_DIR}/"
-cp "LICENSE" "${STAGING_DIR}/" 2>/dev/null || true
+    cp src/extension.js src/indicator.js "${staging}/"
+    cp src/shared/uptime.js "${staging}/shared/"
+    cp prefs/prefs.js "${staging}/prefs.js"
+    cp metadata.json "${staging}/metadata.json"
+    stage_common "${staging}"
 
-# Compile schemas for modern
-if [ -d "${STAGING_DIR}/schemas" ]; then
-    echo "Compiling schemas for modern version..."
-    glib-compile-schemas "${STAGING_DIR}/schemas/"
-    # Remove compiled schema for GNOME 45+ (not needed, see EGO-P-006)
-    rm -f "${STAGING_DIR}/schemas/gschemas.compiled"
-fi
+    # Compile only to validate the schema. GNOME 45+ and `gnome-extensions
+    # install` compile extension schemas themselves, so the binary is omitted.
+    glib-compile-schemas --strict "${staging}/schemas/"
+    rm -f "${staging}/schemas/gschemas.compiled"
 
-# Create modern zip package (files at root)
-cd "${STAGING_DIR}"
-zip -r "${BUILD_DIR}/${EXTENSION_UUID}-${MODERN_VERSION}.zip" ./
-cd - > /dev/null
+    make_zip "${staging}" "${output}"
+    rm -rf "${staging}"
+    log "Modern package: ${output}"
+}
 
-echo "Modern package created: ${BUILD_DIR}/${EXTENSION_UUID}-${MODERN_VERSION}.zip"
+build_legacy
+build_modern
 
-# Cleanup staging
-rm -rf "${STAGING_DIR}"
-
-echo "Build completed successfully!"
-echo "Packages available in ${BUILD_DIR}/:"
-ls -la "${BUILD_DIR}/"
+log "Build completed. Packages in ${BUILD_DIR}:"
+ls -1 "${BUILD_DIR}"
